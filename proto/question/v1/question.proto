@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package question.v1;
+
+option go_package = "StackStats/gen/go/question/v1;questionv1";
+
+message Question {
+  string title = 1;
+  repeated string tags = 2;
+  string body = 3;   // HTML
+  string link = 4;
+}
+
+message SaveQuestionsRequest {
+  repeated Question questions = 1;
+}
+
+message SaveQuestionsResponse {
+  int32 saved = 1;       // сколько реально вставили
+  int32 duplicates = 2;  // сколько пропустили (уже были)
+}
+
+service QuestionService {
+  rpc SaveQuestions(SaveQuestionsRequest) returns (SaveQuestionsResponse);
+}
